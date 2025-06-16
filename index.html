@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Changement de mot de passe EPSNF Juniper</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f97316; /* orange charte */
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+  }
+  /* Container avec formulaire à gauche, liste à droite */
+  .container {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    gap: 30px;
+  }
+
+  /* Formulaire principal */
+  form.main-form {
+    flex: 1 1 700px;
+    background: #fff3e0; /* clair orange très doux */
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* Sections bulles */
+  fieldset {
+    border: 2px solid #fb923c;
+    border-radius: 20px;
+    padding: 25px 40px;
+    background: #fff7ed;
+    box-shadow: 0 0 10px rgba(251, 146, 60, 0.3);
+  }
+  legend {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #c2410c;
+    padding: 0 15px;
+    text-align: center;
+  }
+
+  /* Titres sections */
+  .section-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: center;
+    color: #ea580c;
+    margin-bottom: 15px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Label + inputs */
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #7c2d12;
+  }
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1.8px solid #fb923c;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #c2410c;
+    background: #fff;
+    transition: border-color 0.3s ease;
+  }
+  input[type="password"]:focus,
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #ea580c;
+    box-shadow: 0 0 6px #ea580caa;
+  }
+
+  /* Logo + titre centré */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    flex-basis: 100%;
+  }
+  .header img {
+    max-width: 220px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    color: #7c2d12;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 6px #ea580c66;
+  }
+
+  /* Boutons déployer + valider côte à côte */
+  .btn-row {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 10px;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    background: linear-gradient(45deg, #ea580c, #c2410c);
+    box-shadow: 0 5px 12px #c2410caa;
+    transition: background 0.3s ease;
+    flex: 1;
+    max-width: 250px;
+  }
+  button:hover {
+    background: linear-gradient(45deg, #c2410c, #ea580c);
+  }
+
+  /* Bloc latéral droite: liste + ajout équipements */
+  .sidebar {
+    width: 320px;
+    background: #fff3e0;
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .sidebar h2 {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #c2410c;
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+  .equip-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1.5px solid #fb923c;
+    border-radius: 10px;
+    background: #fff7ed;
+    padding: 12px 15px;
+  }
+  .equipement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fbbf24;
+    padding: 8px 0;
+    font-weight: 600;
+    color: #92400e;
+  }
+  .equipement:last-child {
+    border-bottom: none;
+  }
+  .delete-button {
+    background-color: #c2410c;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .delete-button:hover {
+    background-color: #7c2d12;
+  }
+
+  /* Form ajout équipement */
+  .add-equip-form label {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #7c2d12;
+  }
+  .add-equip-form input[type="text"] {
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <form method="post" action="/deploy" class="main-form">
+      <div class="header">
+        <img src="https://www.quuppa.com/wp-content/uploads/2023/03/ipsilan-logo_600x400-e1661360100926.png" alt="Logo Ipsilan" />
+        <h1>Changement de mot de passe EPSNF Juniper</h1>
+      </div>
+
+      <fieldset>
+        <legend>Étape 1 - Mot de passe admin actuel</legend>
+        <label for="admin_pass_ex">Mot de passe admin EX :</label>
+        <input type="password" name="admin_pass_ex" id="admin_pass_ex" required />
+        <label for="admin_pass_mx">Mot de passe admin MX :</label>
+        <input type="password" name="admin_pass_mx" id="admin_pass_mx" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>Étape 2 - Définir les nouveaux mots de passe</legend>
+
+        <div class="section-title">Juniper EX</div>
+        <label for="root_pass_ex">Mot de passe root :</label>
+        <input type="password" name="root_pass_ex" id="root_pass_ex" />
+        <label for="admin_pass_new_ex">Mot de passe admin :</label>
+        <input type="password" name="admin_pass_new_ex" id="admin_pass_new_ex" />
+        <label for="oxidized_pass_ex">Mot de passe oxidized :</label>
+        <input type="password" name="oxidized_pass_ex" id="oxidized_pass_ex" />
+
+        <div class="section-title">Juniper MX</div>
+        <label for="root_pass_mx">Mot de passe root :</label>
+        <input type="password" name="root_pass_mx" id="root_pass_mx" />
+        <label for="admin_pass_new_mx">Mot de passe admin :</label>
+        <input type="password" name="admin_pass_new_mx" id="admin_pass_new_mx" />
+        <label for="oxidized_pass_mx">Mot de passe oxidized :</label>
+        <input type="password" name="oxidized_pass_mx" id="oxidized_pass_mx" />
+        <label for="ipsisupadm_pass">Mot de passe IpsiSupAdm :</label>
+        <input type="password" name="ipsisupadm_pass" id="ipsisupadm_pass" />
+      </fieldset>
+
+     <div class="btn-row">
+  <button type="submit" name="action" value="deploy">Déployer les mots de passe</button>
+  <button type="submit" formaction="/commit" formmethod="post" name="action" value="commit" style="
+    background: linear-gradient(45deg, #22c55e, #15803d);
+    box-shadow: 0 5px 12px #15803daa;
+  ">Commit final</button>
+</div>
+
+      {% if result %}
+      <div class="result" style="white-space: pre-line; margin-top: 15px; color: #92400e; font-weight: 600;">
+        {{ result }}
+      </div>
+      {% endif %}
+    </form>
+
+    <aside class="sidebar">
+      <h2>📋 Équipements configurés</h2>
+      <div class="equip-list">
+        {% for eq in equipements %}
+          <div class="equipement">
+            <span>{{ eq.nom }} ({{ eq.type }}) - {{ eq.ip }}</span>
+            <form method="post" action="/delete_device" style="margin: 0;">
+              <input type="hidden" name="ip" value="{{ eq.ip }}" />
+              <button class="delete-button" type="submit">Supprimer</button>
+            </form>
+          </div>
+        {% else %}
+          <p style="color:#92400e; text-align:center; font-style: italic;">Aucun équipement configuré.</p>
+        {% endfor %}
+      </div>
+
+      <h3 style="color:#c2410c; text-align:center; font-weight:700; margin-bottom:10px;">➕ Ajouter un équipement</h3>
+      <form method="post" action="/add_device" class="add-equip-form">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" required />
+        <label for="ip">IP :</label>
+        <input type="text" name="ip" id="ip" required />
+        <label for="type">Type (EX ou MX) :</label>
+        <input type="text" name="type" id="type" required />
+        <button type="submit">Ajouter</button>
+      </form>
+    </aside>
+
+  </div>
+</body>
+</html>
