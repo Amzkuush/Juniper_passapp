@@ -1,0 +1,6 @@
+equipements:
+  - name: EX2200C-lab
+    ip: 192.168.91.91
+    type: EX
+    username: admin
+    password: ipsilan!
